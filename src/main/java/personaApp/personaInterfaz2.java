@@ -29,7 +29,7 @@ public class personaInterfaz2 extends javax.swing.JFrame {
         modelo.addColumn("Edad");
         modelo.addColumn("Genero");
         modelo.addColumn("Cedula");
-        this.tabla.setModel(modelo);
+        this.jtPersonas.setModel(modelo);
     }
     
     /**
@@ -63,7 +63,7 @@ public class personaInterfaz2 extends javax.swing.JFrame {
         txt_edad = new javax.swing.JTextField();
         txt_cc = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
+        jtPersonas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -164,7 +164,7 @@ public class personaInterfaz2 extends javax.swing.JFrame {
             }
         });
 
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
+        jtPersonas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -172,7 +172,7 @@ public class personaInterfaz2 extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tabla);
+        jScrollPane1.setViewportView(jtPersonas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -358,45 +358,55 @@ public class personaInterfaz2 extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        
         try{
+            jtPersonas.setModel(modelo);
             
-            String []Datos = new String[3];
+            PreparedStatement ps = null;
+            ResultSet rs = null;
             
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/persona_22_db", "miguel", "200423");
-            PreparedStatement pst = cn.prepareStatement("SELECT * FROM persona");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/persona_22_db", "persona_app", "123");
+            String sql = "SELECT nombre, apellido, edad, genero, cedula FROM persona";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            rs = pst.executeQuery();
             
-            ResultSet rs = pst.executeQuery();
+            ResultSetMetaData rsMd = rs.getMetaData();
+            int cantidadColumnas = rsMd.getColumnCount();
+            
+            
             
             while(rs.next()){
-                Datos[0] = "nombre";
-                Datos[1] = "apellido";
-                Datos[2] = "edad";
-                Datos[3] = "genero";
-                Datos[4] = "cedula";
+                Object[] filas = new Object[cantidadColumnas];
                 
-                modelo.addRow(Datos);
-            }  
-        }catch(Exception e){
-        
+                for(int i = 0; i < cantidadColumnas; i++){
+                    filas[i] = rs.getObject(i + 1);
+                }
+                
+                modelo.addRow(filas);
+            }
+        }catch(SQLException ex){
+            System.err.println(ex.toString());
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         try{
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/persona_22_db", "miguel", "200423");
-            PreparedStatement pst = cn.prepareStatement("SELECT COUNT(*) AS total FROM persona");
+            PreparedStatement ps = null;
+            ResultSet rs = null;
             
-            ResultSet rs = pst.executeQuery();
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/persona_22_db", "persona_app", "123");
+            String sql = "SELECT nombre, apellido, edad, genero, cedula FROM persona";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            rs = pst.executeQuery();    
             
-            txt_nombre.setText(rs.getString("total"));
+            int cantPersonas = 0;
             
-            //JOptionPane.showMessageDialog(null, "Hay " + cantidad);
-            
-            
-            
-        }catch(Exception e){
-            
+            while(rs.next()){
+                cantPersonas++;
+            }
+            JOptionPane.showMessageDialog(null, "Hay " + cantPersonas+" registros");
+        }catch(SQLException ex){
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -472,6 +482,10 @@ public class personaInterfaz2 extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        telefonoInterfaz telefono = new telefonoInterfaz();
+        telefono.setVisible(true);
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -537,7 +551,7 @@ public class personaInterfaz2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabla;
+    private javax.swing.JTable jtPersonas;
     private javax.swing.JTextField txt_apellido;
     private javax.swing.JTextField txt_cc;
     private javax.swing.JTextField txt_edad;
