@@ -8,7 +8,7 @@
 ## FUNCIONES PERSONA
 - ~~INSERTAR~~
 - ~~BUSCAR~~
-- REFRESCAR (Parcialmente, falta arreglar un bug)
+- ~~REFRESCAR~~ 
 - ~~CONTAR~~
 - ~~MODIFICAR~~
 - ~~ELIMINAR~~
@@ -18,7 +18,7 @@
 ## FUNCIONES TELEFONO
 - ~~INSERTAR~~
 - ~~BUSCAR~~
-- REFRESCAR (Parcialmente, falta arreglar un bug)
+- ~~REFRESCAR~~ 
 - ~~CONTAR~~
 - ~~MODIFICAR~~
 - ~~ELIMINAR~~

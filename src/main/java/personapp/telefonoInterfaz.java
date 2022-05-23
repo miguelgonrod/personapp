@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package personaApp;
+package personapp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -271,7 +271,10 @@ public class telefonoInterfaz extends javax.swing.JFrame {
             ResultSetMetaData rsMd = rs.getMetaData();
             int cantidadColumnas = rsMd.getColumnCount();
             
-            
+            int cantCol = modelo.getRowCount();
+            for(int i = 0; i < cantCol; i++){
+                modelo.removeRow(i);
+            }
             
             while(rs.next()){
                 boxDuenios.addItem(rs.getString("cedula"));

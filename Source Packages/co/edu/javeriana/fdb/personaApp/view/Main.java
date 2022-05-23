@@ -1,7 +1,7 @@
 package co.edu.javeriana.fdb.personaApp.view;
 
-import personaApp.personaInterfaz2;
-import personaApp.telefonoInterfaz;
+import personapp.personaInterfaz2;
+import personapp.telefonoInterfaz;
 
 public class Main {
 
