@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import co.edu.javeriana.fdb.personapp.controller.logic.PersonaBO;
 import co.edu.javeriana.fdb.personapp.model.dao.impl.PersonaDAOImpl;
 import co.edu.javeriana.fdb.personapp.model.dto.PersonaDTO;
 
@@ -89,18 +90,33 @@ public class PersonaInterfaz extends JFrame {
 		lblNewLabel_3.setBounds(61, 176, 46, 14);
 		contentPane.add(lblNewLabel_3);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("M");
-		rdbtnNewRadioButton.setBounds(145, 175, 38, 23);
-		contentPane.add(rdbtnNewRadioButton);
+		JRadioButton sexoM = new JRadioButton("M");
+		sexoM.setBounds(145, 175, 38, 23);		
+		contentPane.add(sexoM);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("F");
-		rdbtnNewRadioButton_1.setBounds(185, 175, 38, 23);
-		contentPane.add(rdbtnNewRadioButton_1);
+		JRadioButton sexoF = new JRadioButton("F");
+		sexoF.setBounds(185, 175, 38, 23);		
+		contentPane.add(sexoF);
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("O");
-		rdbtnNewRadioButton_2.setBounds(220, 175, 38, 23);
-		contentPane.add(rdbtnNewRadioButton_2);
-		
+		JRadioButton sexoO = new JRadioButton("O");
+		sexoO.setBounds(220, 175, 38, 23);
+		contentPane.add(sexoO);
+		if(sexoM.isSelected()==true)
+		{
+		 System.out.println("hola");
+		 sexoO.setSelected(false);
+		 sexoF.setSelected(false);
+		}
+		if(sexoF.isSelected()==true)
+		{
+		 sexoO.setSelected(false);
+		 sexoM.setSelected(false);
+		}
+		if(sexoO.isSelected()==true)
+		{
+		 sexoM.setSelected(false);
+		 sexoF.setSelected(false);
+		}
 		JLabel lblNewLabel_4 = new JLabel("C.C");
 		lblNewLabel_4.setBounds(61, 201, 46, 14);
 		contentPane.add(lblNewLabel_4);
@@ -126,12 +142,7 @@ public class PersonaInterfaz extends JFrame {
 		JButton btnNewButton = new JButton("Insert");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int cedula_valor = Integer.parseInt(cedula_caja.getText());
-				int edad_valor = Integer.parseInt(edad_caja.getText());
-				PersonaDTO p1	 = new PersonaDTO((long)cedula_valor,nombre_caja.getText(),apellido_caja.getText(),(short)edad_valor,'m');
-				PersonaDAOImpl personaDAOImpl= new PersonaDAOImpl();
-				personaDAOImpl.create(p1);
-				
+				PersonaBO.insertar(cedula_caja, edad_caja, nombre_caja, apellido_caja, sexoM, sexoF, sexoO);
 			}
 		});
 		btnNewButton.setBounds(42, 227, 89, 23);
@@ -139,15 +150,17 @@ public class PersonaInterfaz extends JFrame {
 		
 		JButton btnNewButton_1 = new JButton("Buscar");
 		btnNewButton_1.setBounds(142, 227, 89, 23);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PersonaBO.buscarID(panelInfo, cedula_caja);
+			}
+			});
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Refresh");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelInfo.setText("");
-				for(PersonaDTO persona : personaDAOImpl.findAll()) {
-					panelInfo.append(persona.toString()+"\n");
-				}
+				PersonaBO.refresh(panelInfo);
 			}
 			});
 		btnNewButton_2.setBounds(256, 227, 89, 23);
@@ -155,17 +168,17 @@ public class PersonaInterfaz extends JFrame {
 		
 		JButton btnNewButton_3 = new JButton("Contar");
 		btnNewButton_3.setBounds(42, 259, 89, 23);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PersonaBO.contar(panelInfo);
+			}
+			});
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Modificar");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int cedula_valor = Integer.parseInt(cedula_caja.getText());
-				int edad_valor = Integer.parseInt(edad_caja.getText());
-				PersonaDTO p1	 = new PersonaDTO((long)cedula_valor,nombre_caja.getText(),apellido_caja.getText(),(short)edad_valor,'m');
-				PersonaDAOImpl personaDAOImpl= new PersonaDAOImpl();
-				personaDAOImpl.edit((long)cedula_valor,p1);
-				
+				PersonaBO.modificar(cedula_caja, edad_caja, nombre_caja, apellido_caja, sexoM, sexoF, sexoO);
 			}
 		});
 		btnNewButton_4.setBounds(142, 259, 89, 23);
@@ -174,9 +187,7 @@ public class PersonaInterfaz extends JFrame {
 		JButton btnNewButton_5 = new JButton("Eliminar");
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int cedula_valor = Integer.parseInt(cedula_caja.getText());
-				PersonaDAOImpl personaDAOImpl= new PersonaDAOImpl();
-				personaDAOImpl.delete((long)cedula_valor);
+				PersonaBO.eliminar(cedula_caja.getText());
 			}
 		});
 		btnNewButton_5.setBounds(256, 261, 89, 23);

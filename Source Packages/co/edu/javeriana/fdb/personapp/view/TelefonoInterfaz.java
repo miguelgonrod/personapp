@@ -90,15 +90,15 @@ public class TelefonoInterfaz extends JFrame {
 		textPane.setBounds(68, 11, 215, 90);
 		contentPane.add(textPane);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("Telefono: ");
 		lblNewLabel.setBounds(85, 134, 46, 14);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
+		JLabel lblNewLabel_1 = new JLabel("Operador: ");
 		lblNewLabel_1.setBounds(85, 163, 46, 14);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
+		JLabel lblNewLabel_2 = new JLabel("Dueño: ");
 		lblNewLabel_2.setBounds(85, 188, 46, 14);
 		contentPane.add(lblNewLabel_2);
 		
