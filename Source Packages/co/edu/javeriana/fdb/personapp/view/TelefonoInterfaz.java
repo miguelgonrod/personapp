@@ -4,9 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import co.edu.javeriana.fdb.personapp.controller.logic.PersonaBO;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
@@ -75,7 +79,7 @@ public class TelefonoInterfaz extends JFrame {
 		btnNewButton_6.setBounds(27, 317, 89, 23);
 		contentPane.add(btnNewButton_6);
 		
-		JButton btnNewButton_7 = new JButton("Ir al telefono");
+		JButton btnNewButton_7 = new JButton("Ir a persona");
 		btnNewButton_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PersonaInterfaz personaInterfaz = new PersonaInterfaz();
@@ -91,11 +95,11 @@ public class TelefonoInterfaz extends JFrame {
 		contentPane.add(textPane);
 		
 		JLabel lblNewLabel = new JLabel("Telefono: ");
-		lblNewLabel.setBounds(85, 134, 46, 14);
+		lblNewLabel.setBounds(85, 134, 55, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Operador: ");
-		lblNewLabel_1.setBounds(85, 163, 46, 14);
+		lblNewLabel_1.setBounds(85, 163, 60, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Dueño: ");
@@ -107,12 +111,15 @@ public class TelefonoInterfaz extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JList list = new JList();
-		list.setBounds(169, 162, 85, 15);
-		contentPane.add(list);
-		
-		JList list_1 = new JList();
-		list_1.setBounds(168, 187, 92, 23);
-		contentPane.add(list_1);
+		JComboBox<String> boxOperadores = new JComboBox<>();
+        boxOperadores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Claro", "Movistar", "Tigo", "Virgin", "Wom", "Movil Exito" }));
+        boxOperadores.setBounds(168, 162, 90, 20);
+        contentPane.add(boxOperadores);
+        
+        JComboBox<String> boxDuenios = new JComboBox<>();
+        boxDuenios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        PersonaBO.refreshBox(boxDuenios);
+        boxDuenios.setBounds(169, 190, 90, 20);
+        contentPane.add(boxDuenios);
 	}
 }

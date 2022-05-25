@@ -195,6 +195,11 @@ public class PersonaInterfaz extends JFrame {
 		
 		JButton btnNewButton_6 = new JButton("Salir");
 		btnNewButton_6.setBounds(27, 317, 89, 23);
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		contentPane.add(btnNewButton_6);
 		
 		JButton btnNewButton_7 = new JButton("Ir al telefono");

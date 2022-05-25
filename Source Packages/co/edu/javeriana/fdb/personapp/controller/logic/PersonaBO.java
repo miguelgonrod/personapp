@@ -2,6 +2,7 @@ package co.edu.javeriana.fdb.personapp.controller.logic;
 
 import java.util.List;
 
+import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -55,6 +56,13 @@ public class PersonaBO {
 		PersonaDAOImpl personaDAOImpl= new PersonaDAOImpl();
 		for(PersonaDTO persona : personaDAOImpl.findAll()) {
 			jTextArea.append(persona.toString()+"\n");
+		}
+	}
+	public static void refreshBox(JComboBox jComboBox) {
+		jComboBox.setToolTipText("");
+		PersonaDAOImpl personaDAOImpl= new PersonaDAOImpl();
+		for(PersonaDTO persona : personaDAOImpl.findAll()) {
+			jComboBox.addItem(persona.getCedula()+"\n");
 		}
 	}
 	public static void contar(JTextArea jTextArea) {
