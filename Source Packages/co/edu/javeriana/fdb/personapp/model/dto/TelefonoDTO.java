@@ -1,16 +1,22 @@
 package co.edu.javeriana.fdb.personapp.model.dto;
 
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import co.edu.javeriana.fdb.personapp.model.dao.impl.PersonaDAOImpl;
+import co.edu.javeriana.fdb.personapp.model.dao.impl.TelefonoDAOImpl;
+
 public class TelefonoDTO {
 
 	private String numero;
 	private  String operador;
 	private PersonaDTO duenio;
-	
-	public TelefonoDTO(String numero, String operador, PersonaDTO duenio) {
+	private String dunio;
+	public TelefonoDTO(String numero, String operador, String dunio) {
 		super();
 		this.numero = numero;
 		this.operador = operador;
-		this.duenio = duenio;
+		this.dunio = dunio;
 	}
 
 	public String getNumero() {
@@ -29,10 +35,13 @@ public class TelefonoDTO {
 		this.operador = operador;
 	}
 
-	public PersonaDTO getDuenio() {
-		return duenio;
+	public  String getDuenio() {
+		return dunio;
 	}
-
+	
+	public void setDunio(String dunio) {
+		this.dunio = dunio;
+	}
 	public void setDuenio(PersonaDTO duenio) {
 		this.duenio = duenio;
 	}
@@ -76,7 +85,7 @@ public class TelefonoDTO {
 
 	@Override
 	public String toString() {
-		return "TelefonoDTO [numero=" + numero + ", operador=" + operador + ", duenio=" + duenio + "]";
+		return "TelefonoDTO [numero=" + numero + ", operador=" + operador + ", duenio=" + dunio + "]";
 	}
 	
 	

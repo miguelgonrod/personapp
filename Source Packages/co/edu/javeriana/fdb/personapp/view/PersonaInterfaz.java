@@ -132,7 +132,6 @@ public class PersonaInterfaz extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(panelInfo);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
 		contentPane.add(scrollPane);
 		scrollPane.setBounds(61, 20, 230, 70);
 		PersonaDAOImpl personaDAOImpl= new PersonaDAOImpl();

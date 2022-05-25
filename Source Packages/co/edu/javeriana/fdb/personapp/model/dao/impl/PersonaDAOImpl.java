@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
+
 public class PersonaDAOImpl implements PersonaDAO {
 
     private final MySQL mysql;
@@ -39,6 +41,7 @@ public class PersonaDAOImpl implements PersonaDAO {
             this.mysql.desconectar();
             switch (code) {
                 case 1:
+                	JOptionPane.showMessageDialog(null,"El registro se ha guardado correctamente");
                     System.out.println("Se creo la persona");
                     return findById(persona.getCedula());
                 default:
@@ -68,6 +71,7 @@ public class PersonaDAOImpl implements PersonaDAO {
              this.mysql.desconectar();
              switch (code) {
                  case 1:
+                	 JOptionPane.showMessageDialog(null,"El registro se ha guardado correctamente");
                      System.out.println("Se edito la persona");
                      return findById(persona.getCedula());
                  default:
@@ -91,6 +95,7 @@ public class PersonaDAOImpl implements PersonaDAO {
              this.mysql.desconectar();
              switch (code) {
                  case 1:
+                	 JOptionPane.showMessageDialog(null,"se ha elimado correctamente");
                      System.out.println("Se elimo la fila donde cedula ="+cedula);
                  default:
                      return null;
@@ -153,10 +158,12 @@ public class PersonaDAOImpl implements PersonaDAO {
         	rs.close();
         	stmt.close();
         	this.mysql.desconectar();
+        	
         	System.out.println("Se obtuvieron las personas");
        }catch(SQLTimeoutException e) {
 	personas=new ArrayList<>();
 	System.out.println("no se obtuvieron las personas");
+	JOptionPane.showMessageDialog(null,"No se obtuvieron las personas");
 	System.out.println("Causas "+ e.getMessage());
 }catch(SQLException e) {
 	personas=new ArrayList<>();

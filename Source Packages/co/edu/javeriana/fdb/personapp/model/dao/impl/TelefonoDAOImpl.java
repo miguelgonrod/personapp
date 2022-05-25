@@ -8,10 +8,14 @@ import co.edu.javeriana.fdb.personapp.util.MySQL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLTimeoutException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
 
 public class TelefonoDAOImpl implements TelefonoDAO{
 
@@ -35,8 +39,9 @@ public class TelefonoDAOImpl implements TelefonoDAO{
             this.mysql.desconectar();
             switch (code) {
                 case 1:
+                	JOptionPane.showMessageDialog(null,"Se creo el telefono");
                     System.out.println("Se creo el telefono");
-                    return findById(telefono.getNumero());
+                    
                 default:
                     return null;
             }
@@ -61,6 +66,7 @@ public class TelefonoDAOImpl implements TelefonoDAO{
             this.mysql.desconectar();
             switch (code) {
                 case 1:
+                	JOptionPane.showMessageDialog(null,"Se edito el telefono");
                     System.out.println("Se edito el telefono");
                     return findById(telefono.getNumero());
                 default:
@@ -84,6 +90,7 @@ public class TelefonoDAOImpl implements TelefonoDAO{
             this.mysql.desconectar();
             switch (code) {
                 case 1:
+                	JOptionPane.showMessageDialog(null,"Se elimino la fila");
                     System.out.println("Se elimo la fila donde numero ="+numero);
                 default:
                     return null;
@@ -102,12 +109,11 @@ public class TelefonoDAOImpl implements TelefonoDAO{
             System.out.println(query);
             Statement stmt = this.mysql.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = stmt.executeQuery(query);
-            PersonaDTO personaDTO= new PersonaDTO("");
-            if (rs.first()) {
-                TelefonoDTO numero = new TelefonoDTO(
+                    if (rs.first()) {
+                TelefonoDTO telefono = new TelefonoDTO(
                         rs.getString("numero"),
                         rs.getString("operador"),
-                        rs.getClass("PersonaDTO");
+                        rs.getString("dunio"));
                 rs.close();
                 stmt.close();
                 return telefono;
@@ -121,27 +127,6 @@ public class TelefonoDAOImpl implements TelefonoDAO{
             return null;
         }
     }
-
-    @Override
-    public List<TelefonoDTO> findByDuenio(Long cedulaDuenio) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public List<TelefonoDTO> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Integer count() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    */
-	@Override
-	public TelefonoDTO findById(String numero) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	@Override
 	public List<TelefonoDTO> findByDuenio(Long cedulaDuenio) {
 		// TODO Auto-generated method stub
@@ -149,12 +134,44 @@ public class TelefonoDAOImpl implements TelefonoDAO{
 	}
 	@Override
 	public List<TelefonoDTO> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+        List<TelefonoDTO> telefonos= new ArrayList<>();
+        TelefonoDTO telefono=null;
+        try {
+        	String query="SELECT * FROM telefono;";
+        	System.out.println(query);
+        	this.mysql.conectar();
+        	Statement stmt= this.mysql.getConnection().createStatement();
+        	ResultSet rs =stmt.executeQuery(query);
+        	while(rs.next()) {
+        		telefono= new TelefonoDTO(
+        				 rs.getString("numero"),
+                         rs.getString("operador"),
+                         rs.getString("duenio"));
+        		telefonos.add(telefono);
+        	}
+        	rs.close();
+        	stmt.close();
+        	this.mysql.desconectar();
+        	System.out.println("Se obtuvieron las personas");
+        	JOptionPane.showMessageDialog(null,"Se obtuvieron las personas");
+       }catch(SQLTimeoutException e) {
+	telefonos=new ArrayList<>();
+	System.out.println("no se obtuvieron las personas");
+	JOptionPane.showMessageDialog(null,"No se obtuvieron las personas");
+	System.out.println("Causas "+ e.getMessage());
+}catch(SQLException e) {
+	telefonos=new ArrayList<>();
+	System.out.println("no se obtuvieron las personas");
+	System.out.println("Causas "+ e.getMessage());
+}
+		return telefonos;
+		
 	}
 	@Override
 	public Integer count() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+  
 }
