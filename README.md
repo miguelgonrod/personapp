@@ -5,6 +5,26 @@
 - Daniel Esteban Castellanos Echeverría
 - Erick Santiago Garavito Villamil
 
+## FUNCIONES PERSONA
+- ~~INSERTAR~~
+- ~~BUSCAR~~
+- ~~REFRESCAR~~ 
+- ~~CONTAR~~
+- ~~MODIFICAR~~
+- ~~ELIMINAR~~
+- ~~SALIR~~
+- ~~IR A TELEFONO~~
+
+## FUNCIONES TELEFONO
+- ~~INSERTAR~~
+- ~~BUSCAR~~
+- ~~REFRESCAR~~ 
+- ~~CONTAR~~
+- ~~MODIFICAR~~
+- ~~ELIMINAR~~
+- ~~SALIR~~
+- ~~IR A PERSONA~~
+
 ## Lenguajes usados
 <img align="left" alt="Java" width="76px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/java/java.png" />
 <img align="left" alt="Maven" width="76px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/maven/maven.png" />
